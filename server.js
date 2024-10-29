@@ -14,13 +14,13 @@ const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.1',
         info: {
-            title: 'Sample API',
+            title: 'Maroon Studios Take-home Assignment',
             version: '1.0.0',
             description: 'An API endpoint with a POST method having two parameters'
         },
         servers: [
             {
-                url: 'http://localhost:3000'
+                url: `http://localhost:${port}`
             },
         ]
     },
@@ -31,7 +31,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 console.log(swaggerDocs)
 
-// '/calculate-change' POST endpoint
+// '/calculate-change' POST endpoint and Swagger documentation
 
 /**
  * @swagger
