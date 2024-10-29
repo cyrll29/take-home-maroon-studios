@@ -1,3 +1,4 @@
+// Initialize server
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -6,7 +7,67 @@ app.use(express.json());
 // Connect to server
 app.listen(port, () => console.log(`Listening to port ${port}`));
 
+//Initailize SwaggerUI
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.1',
+        info: {
+            title: 'Sample API',
+            version: '1.0.0',
+            description: 'An API endpoint with a POST method having two parameters'
+        },
+        servers: [
+            {
+                url: 'http://localhost:3000'
+            },
+        ]
+    },
+    apis: ['server.js']
+}
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+console.log(swaggerDocs)
+
 // '/calculate-change' POST endpoint
+
+/**
+ * @swagger
+ * /calculate-change:
+ *  post:
+ *      summary: calculate-change endpoint
+ *      requestBody:
+ *          require: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          bill:
+ *                              type: integer
+ *                              desccription: Bill given
+ *                              example: 1000
+ *                          owed:
+ *                              type: integer
+ *                              description: Amount owed
+ *                              example: 458
+ *      responses:
+ *          200:
+ *              description: Successful response
+ *              content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          status:
+ *                              type: integer
+ *                          message:
+ *                              type: string
+ *                          data:
+ *                              type: object
+ */
 app.post('/calculate-change', (req, res) => {
     console.log("The /calculate-change endpoint is called")
 
