@@ -87,7 +87,7 @@ app.post('/calculate-change', (req, res) => {
     }
 
     // If bill and owed is an invalid input, send an error
-    if (isNaN(req.body.bill) || isNaN(req.body.owed)) {
+    if (isNaN(req.body.bill) || isNaN(req.body.owed) || change < 0) {
         return res.status(400).json({ "status": 400, "message": "Invalid Input or Number" });
     }
 
